@@ -1,23 +1,17 @@
-# [Your Name]'s Portfolio
-
-> **Before you share:** A README is the introduction to your project on GitHub. It helps someone understand what you built, where to try it, and how you made it without reading the code. Replace the prompts in brackets with your own details, remove these instructions, and keep everything accurate.
+# Alex Dolghii's Portfolio
 
 ## What it is
 
-[In 2 to 3 sentences (or more), explain what your portfolio is for, who it is for, and what visitors will find. Mention real sections or projects from your SPEC.md.]
+My personal portfolio site, aimed at recruiters for security co-op and student roles and at classmates. It covers my work as a Junior Cybersecurity Analyst at Go2Cloud and my other roles, four projects (an Active Directory lab built as code, an Azure AI agent, a cloud ordering platform, and my home lab), my skills grouped by area, my education, and how to reach me.
 
 ## Live site
 
-[View my portfolio](https://YOUR-SITE-ID.web.app)
-
-[Replace the example URL with the Hosting URL that `firebase deploy` printed. If your site is not live yet, write "Not deployed yet" instead.]
+[View my portfolio](https://alex-dolghii.web.app)
 
 ## How it was built
 
-- **Planning:** I used `SPEC.md` to decide [the goal, content, and sections of my site].
-- **Website:** I built it using HTML, CSS, and JavaScript in the `public/` folder. [Mention any feature you personally worked on or changed.]
-- **Design:** I chose the `[vibe-name]` skill for [the colors, typography, layout, and motion].
-- **AI tools:** I used [name of coding agent] to help with [specific tasks]. I [describe one choice you made, change you requested, or test you ran].
-- **Version control and hosting:** I used Git and GitHub to [track changes or collaborate]. I deployed the site using Firebase Hosting. [Remove the deployment sentence until your site is live.]
-
-[Before publishing, delete any bracketed prompts and any steps you did not actually do. You can add more technical details later as your project grows.]
+- **Planning:** I used `SPEC.md` to decide the content and sections of the site: Home, About, Experience, Projects, Skills, Education and Contact. Everything on the page comes from that file.
+- **Website:** Plain HTML, CSS and JavaScript in the `public/` folder, no frameworks. The only script features are a Copy email button and highlighting the section you're reading in the nav.
+- **Design:** I chose the `vibe-terminal` skill, with the feel "technical, dense, a bit playful". I compared three terminal mockups and picked the parts I wanted: a terminal window frame, prompt-style headings and bordered project cards, skills as #tags, and contact as one label and link per line. Those preferences are written in section 8 of `AGENTS.md`.
+- **AI tools:** I used Claude (Claude Code) as the coding agent. It built the site from `SPEC.md` and the rules in `AGENTS.md`, then the result was reviewed for invented content, rule breaks, contrast and mobile layout. I checked the facts in the spec and chose the vibe and layout.
+- **Version control and hosting:** Git and GitHub track every change. The site is deployed with Firebase Hosting, on a custom site name I set up so the link is `alex-dolghii.web.app` instead of the default project ID.
