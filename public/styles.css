@@ -43,6 +43,7 @@
   --num-col: 2ch;                                                /* width of a project number, "01" */
   --arrow-col: 1ch;                                              /* width of the arrow before a project link */
   --cursor-w: 1ch;                                               /* one character wide, like a real block cursor */
+  --wallpaper-tile: 270px;                                       /* size of one repeat of the background doodles */
   --lift: calc(var(--space-1) * 3 / 4);                          /* 3px: how far a project card rises on hover */
   --tap-pad: calc((var(--tap) - 1.5em) / 2);                     /* grows a one-line button to 44px tall without moving the text */
   --text-md: 1.0625rem;
@@ -78,6 +79,14 @@ body {
   font-variant-ligatures: none; /* keeps "C/C++" and "TCP/IP" as plain letters */
   overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
+}
+
+/* The wallpaper around the window: faint terminal and code doodles drawn
+   in the border green (assets/bg-doodles.svg), like a chat-app wallpaper.
+   The window itself has a solid background, so text never sits on it. */
+body {
+  background-image: url("assets/bg-doodles.svg");
+  background-size: var(--wallpaper-tile) var(--wallpaper-tile);
 }
 
 h1,
@@ -856,8 +865,9 @@ main {
    15. Desktop (1024px): sticky one-row title bar
    ========================================================== */
 @media (min-width: 64em) {
+  /* Extra room above and below so the wallpaper frames the window, like the preview. */
   body {
-    padding: var(--space-4);
+    padding: var(--space-5) var(--space-4);
   }
 
   .titlebar {
@@ -991,6 +1001,13 @@ main {
    17. Accessibility settings
    ========================================================== */
 /* "Increase contrast": muted text and borders go to full strength. */
+/* People who ask for more contrast get a plain background, no doodles. */
+@media (prefers-contrast: more) {
+  body {
+    background-image: none;
+  }
+}
+
 @media (prefers-contrast: more) {
   :root {
     --color-muted: var(--color-text);
@@ -1087,6 +1104,11 @@ main {
   /* A cursor means nothing on paper. */
   .hero__prompt::after {
     display: none;
+  }
+
+  /* No wallpaper on paper either. */
+  body {
+    background-image: none;
   }
 
   /* Printing in the middle of a whoami replay must never leave the intro blank. */
