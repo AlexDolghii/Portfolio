@@ -42,6 +42,9 @@
   --measure: 80ch;                                               /* an 80-column terminal line */
   --num-col: 2ch;                                                /* width of a project number, "01" */
   --arrow-col: 1ch;                                              /* width of the arrow before a project link */
+  --cursor-w: 1ch;                                               /* one character wide, like a real block cursor */
+  --lift: calc(var(--space-1) * 3 / 4);                          /* 3px: how far a project card rises on hover */
+  --tap-pad: calc((var(--tap) - 1.5em) / 2);                     /* grows a one-line button to 44px tall without moving the text */
   --text-md: 1.0625rem;
   --text-lg: 1.125rem;
   --text-xl: 1.375rem;
@@ -347,6 +350,39 @@ main {
   content: "$ " / "";
   color: var(--color-accent);
   font-weight: 700;
+}
+
+/* A solid block cursor after "whoami". It blinks a few times on load
+   (section 16, only if motion is allowed), then rests. */
+.hero__prompt::after {
+  content: "";
+  display: inline-block;
+  width: var(--cursor-w);
+  height: 1.2em;
+  margin-left: var(--space-1);
+  vertical-align: text-bottom;
+  background: var(--color-accent);
+}
+
+/* script.js turns "whoami" into this button when motion is allowed.
+   The padding makes it a 44px tap target; the matching negative margin
+   keeps the line exactly where it was, so nothing shifts. */
+.hero__run {
+  position: relative; /* paints above the h1 below it, so all 44px take the click */
+  padding: var(--tap-pad) 0;
+  margin: calc(var(--tap-pad) * -1) 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  cursor: pointer;
+}
+
+.hero__run:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .hero__name {
@@ -867,8 +903,10 @@ main {
 }
 
 /* ==========================================================
-   16. Motion: short, transform/opacity only, and only if the visitor allows it.
-       Nothing moves when the page loads.
+   16. Motion: transform/opacity only, 150-300ms transitions, and only if
+       the visitor allows it. Nothing slides or fades in when the page loads.
+       The one load-time effect is the whoami cursor blinking 4 times
+       (stepped opacity, done in about 4 seconds).
    ========================================================== */
 @media (prefers-reduced-motion: no-preference) {
   .skip-link {
@@ -887,6 +925,56 @@ main {
   .card__link:hover::before,
   .card__link:focus-visible::before {
     transform: translateX(var(--space-1));
+  }
+
+  /* The cursor after "whoami" blinks four times when the page opens, then stays solid. */
+  .hero__prompt::after {
+    animation: cursor-blink 1060ms step-end 4;
+  }
+
+  /* Running "whoami": the name and intro lines hide at once, then fade back
+     in one at a time (script.js adds .is-shown to each, 140ms apart). */
+  .hero.is-running .hero__reveal {
+    opacity: 0;
+  }
+
+  .hero.is-running .hero__reveal.is-shown {
+    opacity: 1;
+    transition: opacity 180ms ease-out;
+  }
+
+  /* Project cards rise 3px for keyboard focus... */
+  .card {
+    transition: transform 150ms ease-out;
+  }
+
+  .card:focus-within {
+    transform: translateY(calc(var(--lift) * -1));
+  }
+
+  /* An invisible 3px strip under each card. It rises with the card and covers
+     the gap the lift leaves, so a pointer at the card's bottom edge stays "on"
+     the card instead of flickering in and out of hover. */
+  .card::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    height: var(--lift);
+  }
+}
+
+/* ...and for a mouse pointer. Touch screens have no real hover, so they skip it. */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .card:hover {
+    transform: translateY(calc(var(--lift) * -1));
+  }
+}
+
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
   }
 }
 
@@ -919,6 +1007,11 @@ main {
 
   .card::before {
     display: none;
+  }
+
+  .hero__prompt::after {
+    forced-color-adjust: none;
+    background: CanvasText;
   }
 }
 
@@ -989,5 +1082,15 @@ main {
   .skill-group,
   .contact li {
     break-inside: avoid;
+  }
+
+  /* A cursor means nothing on paper. */
+  .hero__prompt::after {
+    display: none;
+  }
+
+  /* Printing in the middle of a whoami replay must never leave the intro blank. */
+  .hero__reveal {
+    opacity: 1 !important;
   }
 }

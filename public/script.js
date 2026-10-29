@@ -1,8 +1,9 @@
 /* script.js for Alex Dolghii's portfolio
-   Two small extras. Every word on the page is already in index.html,
+   Three small extras. Every word on the page is already in index.html,
    so the site still reads fine if this file never loads.
      1. A "Copy email" button in the Contact section.
      2. The nav link for the section you are reading lights up.
+     3. Clicking "whoami" replays the intro.
    Nothing here moves anything when the page loads. */
 (() => {
   "use strict";
@@ -196,6 +197,96 @@
     update();
   }
 
+  /* ---------- 3. A "whoami" you can run ----------
+     Clicking the whoami label (or pressing Enter or Space on it) replays the
+     intro: the name and the lines under it hide, then fade back in one at a
+     time, 180ms each. Only set up when the visitor allows motion. Without
+     JavaScript, or with reduced motion, whoami stays plain text and the intro
+     is simply shown. Nothing runs until someone asks for it. */
+
+  function setupWhoami() {
+    const motionOK = window.matchMedia("(prefers-reduced-motion: no-preference)");
+    const hero = document.querySelector(".hero");
+    const label = hero ? hero.querySelector(".hero__prompt") : null;
+    if (!hero || !label) return;
+
+    const lines = [".hero__name", ".hero__title", ".hero__firm", ".hero__edu", ".hero__links"]
+      .map((selector) => hero.querySelector(selector))
+      .filter(Boolean);
+    if (lines.length === 0) return;
+
+    const STEP = 140; // ms between lines
+    const FADE = 180; // ms each line takes to appear (matches styles.css)
+    const word = label.textContent.trim(); // "whoami"
+
+    let button = null;
+    let timers = [];
+
+    // Put everything back to fully shown, right now.
+    function finish() {
+      timers.forEach(clearTimeout);
+      timers = [];
+      hero.classList.remove("is-running");
+      lines.forEach((line) => line.classList.remove("is-shown"));
+    }
+
+    function run() {
+      // Clicking again mid-replay starts it over cleanly.
+      finish();
+      hero.classList.add("is-running");
+      void hero.offsetWidth; // apply the hidden state before the first line fades in
+
+      lines.forEach((line, index) => {
+        timers.push(setTimeout(() => line.classList.add("is-shown"), STEP * (index + 1)));
+      });
+      timers.push(setTimeout(finish, STEP * lines.length + FADE + STEP));
+    }
+
+    // Turn the plain "whoami" label into a real button.
+    function enable() {
+      if (button) return;
+      button = document.createElement("button");
+      button.type = "button";
+      button.className = "hero__run";
+      button.textContent = word;
+      // Starts with the visible word, and says the effect is only visual,
+      // so screen-reader users know not to expect anything announced.
+      button.setAttribute("aria-label", word + ": replay the intro animation");
+      button.addEventListener("click", run);
+
+      label.textContent = "";
+      label.append(button);
+      label.removeAttribute("aria-hidden"); // a real control now, so screen readers should find it
+      lines.forEach((line) => line.classList.add("hero__reveal"));
+    }
+
+    // Turn it back into plain, decorative text (used when reduced motion is switched on).
+    function disable() {
+      if (!button) return;
+      finish();
+      label.textContent = word;
+      label.setAttribute("aria-hidden", "true");
+      lines.forEach((line) => line.classList.remove("hero__reveal"));
+      button = null;
+    }
+
+    // If focus moves to anything else in the intro (for example Tab to the Email
+    // link) while the replay is still running, show everything at once, so no
+    // one ever lands on a link they cannot see.
+    hero.addEventListener("focusin", (event) => {
+      if (button && event.target !== button) finish();
+    });
+
+    // Follow the visitor's motion setting, even if it changes while the page is open.
+    motionOK.addEventListener("change", () => {
+      if (motionOK.matches) enable();
+      else disable();
+    });
+
+    if (motionOK.matches) enable();
+  }
+
   setupCopyEmail();
   setupNav();
+  setupWhoami();
 })();
