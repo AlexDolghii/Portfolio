@@ -1,0 +1,48 @@
+<!doctype html>
+<!--
+  404 page for Alex Dolghii's portfolio. Firebase Hosting serves this file
+  for any address that doesn't exist. Every path below starts with "/" so it
+  still works at a deep wrong address like /projects/old/page.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found · Alex Dolghii</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#07110B">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/script.js" defer></script>
+</head>
+<body>
+  <div class="window">
+
+    <header class="titlebar">
+      <span class="titlebar__dots" aria-hidden="true"><span></span><span></span><span></span></span>
+      <a class="titlebar__name" href="/">Alex Dolghii</a>
+    </header>
+
+    <main id="main" class="notfound">
+      <p class="hero__prompt notfound__command"><span class="sr-only">Command: </span>cd <span id="missing-path" class="notfound__path">this address</span></p>
+      <h1 class="notfound__title">404: page not found</h1>
+      <p class="notfound__text">There's nothing at that address. It may have moved, or the link has a typo.</p>
+      <ul class="hero__links" role="list">
+        <li><a href="/">Back to the portfolio</a></li>
+      </ul>
+    </main>
+
+    <footer class="footer">
+      <p>Alex Dolghii</p>
+      <a href="/">Home</a>
+    </footer>
+
+  </div>
+</body>
+</html>

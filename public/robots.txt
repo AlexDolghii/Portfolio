@@ -1,0 +1,5 @@
+# Every page here is public and may be indexed.
+User-agent: *
+Allow: /
+
+Sitemap: https://alex-dolghii.web.app/sitemap.xml

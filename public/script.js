@@ -1,9 +1,12 @@
 /* script.js for Alex Dolghii's portfolio
-   Three small extras. Every word on the page is already in index.html,
+   A few small extras. Every word on the page is already in index.html,
    so the site still reads fine if this file never loads.
      1. A "Copy email" button in the Contact section.
      2. The nav link for the section you are reading lights up.
      3. Clicking "whoami" replays the intro.
+     4. A short note in the browser console.
+     5. The tab title changes while you are on another tab.
+     6. The 404 page shows which address was not found.
    Nothing here moves anything when the page loads. */
 (() => {
   "use strict";
@@ -286,7 +289,59 @@
     if (motionOK.matches) enable();
   }
 
+  /* ---------- 4. A note for people who open the browser console ---------- */
+
+  function greetConsole() {
+    const big = "font: 700 16px/1.5 'JetBrains Mono', monospace; color: #8FED9B; background: #07110B; padding: 4px 8px;";
+    // Its own dark background too, so it stays readable in a light-theme console.
+    const small = "font: 400 12px/1.5 'JetBrains Mono', monospace; color: #B2CFB8; background: #07110B; padding: 2px 8px;";
+    console.log("%c$ whoami\n%cAlex Dolghii · Junior Cybersecurity Analyst", big, small);
+    console.log(
+      "%cPlain HTML, CSS and JavaScript. No frameworks, no build step.\nThe code: https://github.com/AlexDolghii/Portfolio",
+      small
+    );
+  }
+
+  /* ---------- 5. The tab title notices when you switch away ----------
+     "fg" is the terminal command that brings a background job back to the
+     front. The title goes back to normal the moment the tab is visible again. */
+
+  function setupTabTitle() {
+    const original = document.title;
+    const away = "$ fg · Alex Dolghii";
+    let leaving = false;
+
+    // When the visitor actually leaves the page (link, back button, closing the tab),
+    // the browser saves the title into history. "pagehide" fires first, so put the
+    // real title back and skip the swap; history then never says "$ fg".
+    window.addEventListener("pagehide", () => {
+      leaving = true;
+      document.title = original;
+    });
+    window.addEventListener("pageshow", () => {
+      leaving = false;
+      document.title = original;
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      document.title = document.hidden && !leaving ? away : original;
+    });
+  }
+
+  /* ---------- 6. 404 page: show the address that was not found ----------
+     Only runs on 404.html, which has an element with id="missing-path".
+     textContent (never innerHTML), so a strange address can't inject anything. */
+
+  function setupNotFound() {
+    const slot = document.getElementById("missing-path");
+    if (!slot) return;
+    slot.textContent = window.location.pathname;
+  }
+
   setupCopyEmail();
   setupNav();
   setupWhoami();
+  setupNotFound();
+  setupTabTitle();
+  greetConsole();
 })();

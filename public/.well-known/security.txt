@@ -1,0 +1,7 @@
+# Security contact for alex-dolghii.web.app (RFC 9116).
+# Found a vulnerability on this site? Please report it by email.
+Contact: mailto:alex.dolghii@gmail.com
+Expires: 2027-10-29T04:00:00.000Z
+Preferred-Languages: en
+Canonical: https://alex-dolghii.web.app/.well-known/security.txt
+Canonical: https://alex-dolghii.firebaseapp.com/.well-known/security.txt
