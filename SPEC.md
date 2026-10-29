@@ -1,15 +1,26 @@
 # My portfolio spec
 
-<!-- WORKSHOP: Answer the questions below in plain English. Replace each question with your own answer. Keep each answer short. Delete any question you cannot answer; never invent projects, skills or links. Do not ask the agent to build until you have filled this in. -->
-
-- **Who I am:** What is your name, what do you study or do, and where?
-- **Audience and goal:** Who do you want to visit your portfolio, and what should they learn about you?
-- **About me:** In 1–2 sentences, what interests you or what do you enjoy building?
-- **Sections:** Which sections do you want? Choose only ones you have content for (Home, About, Projects, Skills, Contact, Resume).
-- **Projects:** What 1–3 real projects do you want to show? Put each one on its own line below: name, what it does, and a link if you have one. If you have no projects yet, delete this question.
-  - Project 1: name / what it does / link (optional)
-  - Project 2: name / what it does / link (optional)
-- **Skills:** Which tools, languages or skills have you actually used?
-- **Contact:** Which email, GitHub or LinkedIn link should visitors use? Include only links you want public.
-- **Vibe and feel:** Which ONE vibe do you want: `vibe-blueprint`, `vibe-brutalist`, `vibe-editorial`, `vibe-notebook`, `vibe-pixel`, `vibe-soft-pastel`, `vibe-terminal` or `vibe-y2k-web`? What 2–3 words describe the feel (for example: calm, bold, playful)?
-- **Optional files:** Are you including a photo or résumé? If so, put them in `public/assets/` (create the folder if it is missing) and write their filenames here. Otherwise, delete this line.
+- **Who I am:** Alex Dolghii, Cybersecurity (B.A. Spec. Hons.) student at York University, Toronto, graduating April 2028. Junior Cybersecurity Analyst at Go2Cloud, a Microsoft partner MSP, since 2022.
+- **Audience and goal:** Recruiters for security co-op and student roles (Winter 2027), and classmates. They should see that I already do security operations work and build and run real systems, not just coursework.
+- **About me:** Four years of hands-on security and IT operations at an MSP: phishing and sign-in triage in Defender for Office 365 and Entra ID, Microsoft 365 tenant hardening against CIS and CISA SCuBA baselines, MFA and Conditional Access rollouts across 6+ tenants. Outside work I like building things end to end: cloud agents, a home-lab Active Directory forest built as code, and the scripts and runbooks around them.
+- **Sections:** Home, About, Experience, Projects, Skills, Education, Contact.
+- **Experience:**
+  - Junior Cybersecurity Analyst (part-time), Go2Cloud, Toronto, Oct 2022 to present. Triage user-reported phishing and suspicious sign-ins in Defender for Office 365 and Entra ID, contain and escalate, document each case. Assess Microsoft 365 tenant posture against CISA SCuBA and CIS baselines. Administer Microsoft 365 and Entra ID across 6+ tenants, drove MFA rollouts to full coverage. Script repetitive admin work in PowerShell and Python; write the runbooks and knowledge base articles the team uses. Tenant and mailbox migrations, Autopilot and Intune device deployment.
+  - IT Setup & Support Technician (on-call), Farmanesh Holdings, Thornhill and Scarborough, 2024 to present. Built two computer-based CELPIP test centres from an empty room: 59 candidate workstations on one standard locked-down build, plus the admin station that monitors and runs exam sessions. On-call break/fix so test sittings are not disrupted.
+  - Web Security Consultant (freelance), Toronto, Jun 2022 to present. Harden WordPress sites for small businesses: authentication review, plugin exposure audits, SSL/TLS, CAPTCHA, login hardening, least-privilege access.
+  - Cybersecurity Research Volunteer, York University Cybersecurity Club, Sept 2024 to present. Write and lead walkthrough sessions on Windows and Kali Linux lab scenarios; traffic analysis and enumeration with Wireshark and Nmap.
+- **Projects:**
+  - Project 1: Active Directory Lab as Code / Seven idempotent PowerShell scripts driven by one config file take a bare Windows Server 2025 Hyper-V host to a promoted Windows Server 2022 domain controller with DNS, an OU baseline, and a domain-joined client. No secrets in the repo; credentials prompted at runtime. Lessons-learned guide included. / https://github.com/AlexDolghii/g2c-homelab
+  - Project 2: AI Agent with RAG and Tool Use / Code-first Azure AI Foundry agent in Python (azure-ai-projects SDK) with RAG over a 15-document vector store, a custom function tool, and an MCP server connection for live order placement, tracking and cancellation. All six levels of the Microsoft Azure AI Agent Open Hack, Aug 2026. / https://github.com/AlexDolghii/contoso-pizza-agent
+  - Project 3: Cloud Ordering Platform / Multi-service Azure stack deployed into a live business tenant: Static Web Apps front end, Functions REST API, Container Apps service, Azure DNS with two custom domains and managed TLS. Cut running cost roughly 98% by moving validated workloads to consumption-tier services. / https://pizza.go2cloud.ca
+  - Project 4: Home lab / Self-built desktop (custom water cooling) running Windows Server 2025 Hyper-V with the domain controller above plus Pi-hole DNS, Vaultwarden and Immich.
+- **Skills:**
+  - Security operations: phishing and sign-in triage (Defender for Office 365, Entra ID sign-in logs), incident response and escalation, posture assessment (CIS Benchmarks, CISA SCuBA), MFA and Conditional Access, NIST CSF, MITRE ATT&CK, Wireshark, Nmap, Kali Linux, Hack The Box
+  - Identity and Microsoft 365: Exchange Online, Teams, SharePoint/OneDrive, licensing, Entra ID, Active Directory (AD DS, DNS, Global Catalog, OU design), identity lifecycle
+  - Endpoint management: Intune, Windows Autopilot, Windows imaging (DISM), feature-update rings, Apple Business Manager
+  - Systems and cloud: Windows Server 2022/2025, Hyper-V, Azure (Static Web Apps, Functions, Container Apps, DNS, AI Foundry), migrations, backup and disaster recovery
+  - Networking: TCP/IP, DNS, DHCP, VPN, SSL/TLS, packet analysis
+  - Languages and tools: PowerShell, Python, Bash, Java, C/C++, JavaScript, Git, REST APIs
+- **Education:** York University, Cybersecurity (B.A. Spec. Hons.), Sept 2024 to Apr 2028 expected. GPA 4.0, Honours standing, PureFacts PureScholars Award, York University Entrance Scholarship. Certifications: Microsoft SC-900, Oracle Certified Foundations Associate (Java).
+- **Contact:** GitHub: https://github.com/AlexDolghii; email: alex.dolghii@gmail.com; LinkedIn: https://www.linkedin.com/in/alexander-dolghii-08b081292/
+- **Vibe and feel:** `vibe-terminal`: technical, dense, a bit playful.

@@ -38,6 +38,6 @@ After every change, explain it in simple first-year language in three parts: wha
 - Use at most one vibe at a time, and only the one the student names. If the student has not picked a vibe, use none.
 
 ## 8. My preferences (the student fills this in)
-- How I like explanations:
-- Things I always want:
-- Things I never want:
+- How I like explanations: medium length, plain English, not one-liners and not essays; tell me which file and lines changed.
+- Things I always want: a terminal window frame around the page, prompt-style headings, bordered project cards, skills shown as #tags, contact as label + link on one line each.
+- Things I never want: fake system logs or typing animations, invented content.
