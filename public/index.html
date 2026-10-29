@@ -3,12 +3,354 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My portfolio</title>
+  <title>Alex Dolghii · Junior Cybersecurity Analyst</title>
+  <meta name="description" content="Junior Cybersecurity Analyst at Go2Cloud, a Microsoft partner MSP, since 2022. Cybersecurity (B.A. Spec. Hons.) student at York University, Toronto, graduating April 2028.">
+  <meta name="author" content="Alex Dolghii">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Alex Dolghii · Junior Cybersecurity Analyst">
+  <meta property="og:description" content="Junior Cybersecurity Analyst at Go2Cloud, a Microsoft partner MSP, since 2022. Cybersecurity (B.A. Spec. Hons.) student at York University, Toronto, graduating April 2028.">
+  <meta name="theme-color" content="#07110B">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- Font: JetBrains Mono. The only outside file the vibe allows. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <main>
-    <h1>Your portfolio starts here</h1>
-    <p>Fill in SPEC.md, then ask the agent to build your site.</p>
-  </main>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- The whole page sits inside one terminal-style window frame. -->
+  <div class="window">
+
+    <!-- Title bar: decorative window dots, his real name, and the section links. -->
+    <header class="titlebar">
+      <span class="titlebar__dots" aria-hidden="true"><span></span><span></span><span></span></span>
+      <a class="titlebar__name" href="#home">Alex Dolghii</a>
+      <nav class="nav" aria-label="Sections">
+        <ul class="nav__list" role="list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- tabindex="-1" lets the skip link move keyboard focus here in every browser. -->
+    <main id="main" tabindex="-1">
+
+      <!-- Home: "whoami" is only a decorative label; the lines below it are the real intro from SPEC.md. -->
+      <section id="home" class="hero" aria-labelledby="home-title">
+        <p class="hero__prompt" aria-hidden="true">whoami</p>
+        <h1 class="hero__name" id="home-title">Alex Dolghii</h1>
+        <p class="hero__role">
+          <span class="hero__title"><strong>Junior Cybersecurity Analyst</strong> at <strong class="hero__org">Go2Cloud</strong>,</span>
+          <span class="hero__firm">a Microsoft partner MSP, since <time datetime="2022">2022</time>.</span>
+        </p>
+        <p class="hero__edu">Cybersecurity (B.A. Spec. Hons.) student at York University, Toronto, graduating <time datetime="2028-04">April 2028</time>.</p>
+        <ul class="hero__links" role="list">
+          <li><a href="mailto:alex.dolghii@gmail.com">Email</a></li>
+          <li><a href="https://www.linkedin.com/in/alexander-dolghii-08b081292/" rel="me">LinkedIn</a></li>
+          <li><a href="https://github.com/AlexDolghii" rel="me">GitHub</a></li>
+        </ul>
+      </section>
+
+      <section id="about" class="section" aria-labelledby="about-title">
+        <h2 class="section__title" id="about-title">About</h2>
+        <div class="about">
+          <p><strong class="hl">Four years</strong> of hands-on security and IT operations at an MSP: phishing and sign-in triage in Defender for Office 365 and Entra ID, Microsoft 365 tenant hardening against CIS and CISA SCuBA baselines, MFA and Conditional Access rollouts across <strong class="hl">6+ tenants</strong>.</p>
+          <p>Outside work I like building things end to end: cloud agents, a home-lab Active Directory forest built as code, and the scripts and runbooks around them.</p>
+        </div>
+      </section>
+
+      <!-- Experience: drawn like "tree" output, one branch per role. -->
+      <section id="experience" class="section" aria-labelledby="experience-title">
+        <h2 class="section__title" id="experience-title">Experience</h2>
+        <div class="entries entries--tree">
+
+          <article class="entry">
+            <div class="entry__head">
+              <h3 class="entry__title">
+                <span class="entry__role">Junior Cybersecurity Analyst</span><span class="sr-only">, </span>
+                <span class="entry__org">Go2Cloud</span>
+              </h3>
+              <p class="entry__dates"><span class="entry__kind">part-time</span><span class="sr-only">,</span> <span class="nowrap"><time datetime="2022-10">Oct 2022</time> to present</span></p>
+              <p class="entry__place">Toronto<span class="sr-only">,</span> <span class="sep" aria-hidden="true">·</span> Microsoft partner MSP</p>
+            </div>
+            <ul class="bullets" role="list">
+              <li>Triage user-reported phishing and suspicious sign-ins in Defender for Office 365 and Entra ID, contain and escalate, document each case.</li>
+              <li>Assess Microsoft 365 tenant posture against CISA SCuBA and CIS baselines.</li>
+              <li>Administer Microsoft 365 and Entra ID across <strong class="hl">6+ tenants</strong>.</li>
+              <li>Drove MFA rollouts to <strong class="hl">full coverage</strong>.</li>
+              <li>Script repetitive admin work in PowerShell and Python.</li>
+              <li>Write the runbooks and knowledge base articles the team uses.</li>
+              <li>Tenant and mailbox migrations, Autopilot and Intune device deployment.</li>
+            </ul>
+          </article>
+
+          <article class="entry">
+            <div class="entry__head">
+              <h3 class="entry__title">
+                <span class="entry__role">IT Setup &amp; Support Technician</span><span class="sr-only">, </span>
+                <span class="entry__org">Farmanesh Holdings</span>
+              </h3>
+              <p class="entry__dates"><span class="entry__kind">on-call</span><span class="sr-only">,</span> <span class="nowrap"><time datetime="2024">2024</time> to present</span></p>
+              <p class="entry__place">Thornhill and Scarborough</p>
+            </div>
+            <ul class="bullets" role="list">
+              <li>Built <strong class="hl">two computer-based CELPIP test centres</strong> from an empty room.</li>
+              <li><strong class="hl">59 candidate workstations</strong> on one standard locked-down build, plus the admin station that monitors and runs exam sessions.</li>
+              <li>On-call break/fix so test sittings are not disrupted.</li>
+            </ul>
+          </article>
+
+          <article class="entry">
+            <div class="entry__head">
+              <h3 class="entry__title">
+                <span class="entry__role">Web Security Consultant</span>
+              </h3>
+              <p class="entry__dates"><span class="entry__kind">freelance</span><span class="sr-only">,</span> <span class="nowrap"><time datetime="2022-06">Jun 2022</time> to present</span></p>
+              <p class="entry__place">Toronto</p>
+            </div>
+            <ul class="bullets" role="list">
+              <li>Harden WordPress sites for small businesses: authentication review, plugin exposure audits, SSL/TLS, CAPTCHA, login hardening, least-privilege access.</li>
+            </ul>
+          </article>
+
+          <!-- "entry--stacked": this title is too long to share a line with its club name, so the name always sits underneath. -->
+          <article class="entry entry--stacked">
+            <div class="entry__head">
+              <h3 class="entry__title">
+                <span class="entry__role">Cybersecurity Research Volunteer</span><span class="sr-only">, </span>
+                <span class="entry__org">York University Cybersecurity Club</span>
+              </h3>
+              <p class="entry__dates"><span class="nowrap"><time datetime="2024-09">Sept 2024</time> to present</span></p>
+            </div>
+            <ul class="bullets" role="list">
+              <li>Write and lead walkthrough sessions on Windows and Kali Linux lab scenarios.</li>
+              <li>Traffic analysis and enumeration with Wireshark and Nmap.</li>
+            </ul>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Projects: bordered cards with a green left edge. The 01-04 numbers are drawn by CSS. -->
+      <section id="projects" class="section" aria-labelledby="projects-title">
+        <h2 class="section__title" id="projects-title">Projects</h2>
+        <div class="cards">
+
+          <article class="card">
+            <div class="card__head">
+              <h3 class="card__title">Active Directory Lab as Code</h3>
+              <a class="card__link" href="https://github.com/AlexDolghii/g2c-homelab"><span class="card__url">github.com/<wbr>AlexDolghii/<wbr><span class="nowrap">g2c-homelab</span></span></a>
+            </div>
+            <p><strong class="hl">Seven idempotent PowerShell scripts</strong> driven by one config file take a bare Windows Server 2025 Hyper-V host to a promoted Windows Server 2022 domain controller with DNS, an OU baseline, and a domain-joined client.</p>
+            <ul class="bullets" role="list">
+              <li>No secrets in the repo; credentials prompted at runtime.</li>
+              <li>Lessons-learned guide included.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card__head">
+              <h3 class="card__title">AI Agent with RAG and Tool Use</h3>
+              <a class="card__link" href="https://github.com/AlexDolghii/contoso-pizza-agent"><span class="card__url">github.com/<wbr>AlexDolghii/<wbr><span class="nowrap">contoso-pizza-agent</span></span></a>
+            </div>
+            <p>Code-first Azure AI Foundry agent in Python (azure-ai-projects SDK) with:</p>
+            <ul class="bullets" role="list">
+              <li>RAG over a <strong class="hl">15-document vector store</strong></li>
+              <li>a custom function tool</li>
+              <li>an MCP server connection for live order placement, tracking and cancellation</li>
+            </ul>
+            <p><strong class="hl">All six levels</strong> of the Microsoft Azure AI Agent Open Hack, <time datetime="2026-08">Aug 2026</time>.</p>
+          </article>
+
+          <article class="card">
+            <div class="card__head">
+              <h3 class="card__title">Cloud Ordering Platform</h3>
+              <a class="card__link" href="https://pizza.go2cloud.ca"><span class="card__url">pizza.go2cloud.ca</span></a>
+            </div>
+            <p>Multi-service Azure stack deployed into a live business tenant:</p>
+            <ul class="bullets" role="list">
+              <li>Static Web Apps front end</li>
+              <li>Functions REST API</li>
+              <li>Container Apps service</li>
+              <li>Azure DNS with two custom domains and managed TLS</li>
+            </ul>
+            <p>Cut running cost <strong class="hl">roughly 98%</strong> by moving validated workloads to consumption-tier services.</p>
+          </article>
+
+          <article class="card">
+            <div class="card__head">
+              <h3 class="card__title">Home lab</h3>
+            </div>
+            <p>Self-built desktop (custom water cooling) running Windows Server 2025 Hyper-V with the domain controller above plus Pi-hole DNS, Vaultwarden and Immich.</p>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Skills: #tags, grouped the same way as SPEC.md. -->
+      <section id="skills" class="section" aria-labelledby="skills-title">
+        <h2 class="section__title" id="skills-title">Skills</h2>
+        <div class="skills">
+
+          <div class="skill-group">
+            <h3 class="skill-group__name">Security operations</h3>
+            <ul class="tags" role="list">
+              <li>phishing and sign-in triage <span class="tags__note">(Defender for Office 365, Entra ID sign-in logs)</span></li>
+              <li>incident response and escalation</li>
+              <li>posture assessment <span class="tags__note">(CIS Benchmarks, CISA SCuBA)</span></li>
+              <li>MFA and Conditional Access</li>
+              <li>NIST CSF</li>
+              <li>MITRE ATT&amp;CK</li>
+              <li>Wireshark</li>
+              <li>Nmap</li>
+              <li>Kali Linux</li>
+              <li>Hack The Box</li>
+            </ul>
+          </div>
+
+          <div class="skill-group">
+            <h3 class="skill-group__name">Identity and Microsoft 365</h3>
+            <ul class="tags" role="list">
+              <li>Exchange Online</li>
+              <li>Teams</li>
+              <li>SharePoint/OneDrive</li>
+              <li>licensing</li>
+              <li>Entra ID</li>
+              <li>Active Directory <span class="tags__note">(AD DS, DNS, Global Catalog, OU design)</span></li>
+              <li>identity lifecycle</li>
+            </ul>
+          </div>
+
+          <div class="skill-group">
+            <h3 class="skill-group__name">Endpoint management</h3>
+            <ul class="tags" role="list">
+              <li>Intune</li>
+              <li>Windows Autopilot</li>
+              <li>Windows imaging <span class="tags__note">(DISM)</span></li>
+              <li>feature-update rings</li>
+              <li>Apple Business Manager</li>
+            </ul>
+          </div>
+
+          <div class="skill-group">
+            <h3 class="skill-group__name">Systems and cloud</h3>
+            <ul class="tags" role="list">
+              <li>Windows Server 2022/2025</li>
+              <li>Hyper-V</li>
+              <li>Azure <span class="tags__note">(Static Web Apps, Functions, Container Apps, DNS, AI Foundry)</span></li>
+              <li>migrations</li>
+              <li>backup and disaster recovery</li>
+            </ul>
+          </div>
+
+          <div class="skill-group">
+            <h3 class="skill-group__name">Networking</h3>
+            <ul class="tags" role="list">
+              <li>TCP/IP</li>
+              <li>DNS</li>
+              <li>DHCP</li>
+              <li>VPN</li>
+              <li>SSL/TLS</li>
+              <li>packet analysis</li>
+            </ul>
+          </div>
+
+          <div class="skill-group">
+            <h3 class="skill-group__name">Languages and tools</h3>
+            <ul class="tags" role="list">
+              <li>PowerShell</li>
+              <li>Python</li>
+              <li>Bash</li>
+              <li>Java</li>
+              <li>C/C++</li>
+              <li>JavaScript</li>
+              <li>Git</li>
+              <li>REST APIs</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="education" class="section" aria-labelledby="education-title">
+        <h2 class="section__title" id="education-title">Education</h2>
+        <div class="entries">
+
+          <article class="entry">
+            <div class="entry__head">
+              <h3 class="entry__title">
+                <span class="entry__role">Cybersecurity <span class="entry__note">(B.A. Spec. Hons.)</span></span><span class="sr-only">, </span>
+                <span class="entry__org">York University</span>
+              </h3>
+              <p class="entry__dates"><time datetime="2024-09">Sept 2024</time> to <time datetime="2028-04">Apr 2028</time> expected</p>
+            </div>
+            <ul class="bullets" role="list">
+              <li><strong class="hl">GPA 4.0</strong>, Honours standing</li>
+              <li>PureFacts PureScholars Award</li>
+              <li>York University Entrance Scholarship</li>
+            </ul>
+          </article>
+
+          <article class="entry">
+            <div class="entry__head">
+              <h3 class="entry__title">Certifications</h3>
+            </div>
+            <ul class="bullets" role="list">
+              <li>Microsoft SC-900</li>
+              <li>Oracle Certified Foundations Associate (Java)</li>
+            </ul>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Contact: a muted label in a fixed column, then the link. One per line. -->
+      <section id="contact" class="section" aria-labelledby="contact-title">
+        <h2 class="section__title" id="contact-title">Contact</h2>
+        <ul class="contact" role="list">
+          <li>
+            <span class="contact__label">email</span>
+            <span class="contact__value">
+              <!-- <wbr> lets a very narrow phone wrap the address after the "@", never in the middle of a word. -->
+              <a href="mailto:alex.dolghii@gmail.com">alex.dolghii@<wbr>gmail.com</a>
+              <!-- Hidden until script.js runs, so nobody without JavaScript sees a button that does nothing. -->
+              <button class="copy" type="button" data-copy="alex.dolghii@gmail.com" hidden>Copy email</button>
+              <span class="sr-only" id="copy-status" role="status"></span>
+            </span>
+          </li>
+          <li>
+            <span class="contact__label">LinkedIn</span>
+            <span class="contact__value">
+              <a href="https://www.linkedin.com/in/alexander-dolghii-08b081292/" rel="me">linkedin.com/in/<wbr>alexander-dolghii-08b081292</a>
+            </span>
+          </li>
+          <li>
+            <span class="contact__label">GitHub</span>
+            <span class="contact__value">
+              <a href="https://github.com/AlexDolghii" rel="me">github.com/<wbr>AlexDolghii</a>
+            </span>
+          </li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p>Alex Dolghii</p>
+      <a href="#home">Back to top</a>
+    </footer>
+
+  </div>
 </body>
 </html>

@@ -1,0 +1,993 @@
+/* ==========================================================
+   styles.css for Alex Dolghii's portfolio
+   Vibe: vibe-terminal.
+   Mobile-first: the base rules are for phones. The min-width
+   media queries further down widen the layout.
+   ========================================================== */
+
+/* ==========================================================
+   1. Design tokens: copied exactly from the vibe-terminal skill
+   ========================================================== */
+:root {
+  /* Colors (mode: dark) */
+  --color-bg: #07110B;
+  --color-text: #F0F8F0;
+  --color-muted: #B2CFB8;
+  --color-accent: #8FED9B;
+  --color-border: #3B6B47;
+
+  /* Fonts */
+  --font-heading: "JetBrains Mono", monospace;
+  --font-body: "JetBrains Mono", monospace;
+
+  /* Shape and spacing (density: normal) */
+  --radius: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 32px;
+  --space-5: 64px;
+  --max-width: 980px;
+}
+
+/* ==========================================================
+   2. Helper values, built only from the tokens above
+   ========================================================== */
+:root {
+  --tap: calc(var(--space-4) + var(--space-2) + var(--space-1)); /* 44px: smallest comfy tap target */
+  --dot: calc(var(--space-2) + var(--space-1));                  /* 12px window dot */
+  --branch-y: calc(var(--space-2) + var(--space-1) / 2);         /* 10px: middle of a role title's first line */
+  --rule: 1px solid var(--color-border);
+  --rule-dashed: 1px dashed var(--color-border);
+  --measure: 80ch;                                               /* an 80-column terminal line */
+  --num-col: 2ch;                                                /* width of a project number, "01" */
+  --arrow-col: 1ch;                                              /* width of the arrow before a project link */
+  --text-md: 1.0625rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+}
+
+/* ==========================================================
+   3. Base (phones first)
+   ========================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  color-scheme: dark;
+  background: var(--color-bg);
+  scrollbar-color: var(--color-border) var(--color-bg);
+}
+
+body {
+  margin: 0;
+  padding: var(--space-2);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  font-variant-ligatures: none; /* keeps "C/C++" and "TCP/IP" as plain letters */
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+p,
+ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+strong {
+  font-weight: 700;
+}
+
+/* Keep "Oct 2022" or "April 2028" together on one line. */
+time {
+  white-space: nowrap;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Keyboard focus is always visible. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: calc(var(--space-1) / 2);
+}
+
+/* main only gets focus from the skip link, so it needs no ring. */
+main:focus {
+  outline: none;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* Make sure the "hidden" attribute wins over any display rule below. */
+[hidden] {
+  display: none !important;
+}
+
+/* Text for screen readers only (for example the comma between a role and an employer). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Keeps a short run of words together, so a line breaks somewhere sensible. */
+.nowrap {
+  white-space: nowrap;
+}
+
+/* ==========================================================
+   4. Skip link
+   ========================================================== */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius);
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* ==========================================================
+   5. Window frame and title bar
+   ========================================================== */
+.window {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  border: var(--rule);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+}
+
+.titlebar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--space-3);
+  padding: 0 var(--space-3);
+  border-bottom: var(--rule);
+  background: var(--color-bg);
+}
+
+/* Three decorative window dots. Not buttons, so they do nothing. */
+.titlebar__dots {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+
+.titlebar__dots span {
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  background: var(--color-border);
+}
+
+.titlebar__name {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--color-muted);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.titlebar__name:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+/* On phones and tablets the nav sits on its own row under the title. */
+.nav {
+  flex: 1 0 100%;
+  padding-bottom: var(--space-1);
+}
+
+.nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--space-1);
+  margin: 0 calc(var(--space-2) * -1);
+}
+
+.nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  text-decoration: none;
+  text-transform: lowercase;
+}
+
+/* Hover looks like selected text in a terminal. */
+.nav a:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* script.js marks the section you are reading with aria-current. */
+.nav a[aria-current] {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
+}
+
+.nav a[aria-current]:hover {
+  color: var(--color-bg);
+}
+
+/* ==========================================================
+   6. Main column, prompt-style headings, shared bits
+   ========================================================== */
+main {
+  padding: 0 var(--space-3) var(--space-4);
+}
+
+.section {
+  padding-top: var(--space-4);
+}
+
+/* Every section heading looks like a prompt: "$ experience ------" */
+.section__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  text-transform: lowercase;
+}
+
+.section__title::before {
+  content: "$";
+  content: "$" / "";
+  color: var(--color-accent);
+}
+
+/* A thin rule runs from the heading to the edge of the window. */
+.section__title::after {
+  content: "";
+  flex: 1 1 var(--space-4);
+  border-top: var(--rule);
+}
+
+/* Emphasis for the real numbers and outcomes from SPEC.md. */
+.hl {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+/* Dash bullets, like a plain-text list. */
+.bullets {
+  display: grid;
+  gap: var(--space-1);
+  max-width: var(--measure);
+}
+
+.bullets li {
+  position: relative;
+  padding-left: calc(var(--space-3) + var(--space-1));
+}
+
+.bullets li::before {
+  content: "-";
+  content: "-" / "";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+}
+
+/* ==========================================================
+   7. Home (hero)
+   ========================================================== */
+.hero {
+  padding-top: var(--space-4);
+}
+
+.hero__prompt {
+  color: var(--color-muted);
+}
+
+.hero__prompt::before {
+  content: "$ ";
+  content: "$ " / "";
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.hero__name {
+  margin-top: var(--space-2);
+  font-size: clamp(2rem, 1.5rem + 2.5vw, 2.75rem);
+  font-weight: 700;
+}
+
+.hero__role {
+  margin-top: var(--space-3);
+}
+
+.hero__title {
+  display: block;
+  font-size: var(--text-lg);
+  line-height: 1.4;
+}
+
+.hero__org {
+  color: var(--color-accent);
+}
+
+.hero__firm {
+  display: block;
+  color: var(--color-muted);
+}
+
+.hero__edu {
+  max-width: var(--measure);
+  margin-top: var(--space-3);
+  text-wrap: balance;
+}
+
+.hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.hero__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.hero__links a:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* ==========================================================
+   8. About (one output column with a thin prompt-green rule)
+   ========================================================== */
+.about {
+  display: grid;
+  gap: var(--space-3);
+  max-width: var(--measure);
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--color-accent);
+}
+
+/* ==========================================================
+   9. Experience and Education entries
+   ========================================================== */
+.entries {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.entry__head {
+  display: grid;
+  margin-bottom: var(--space-2);
+}
+
+.entry__title {
+  font-size: var(--text-md);
+  font-weight: 700;
+}
+
+.entry__note {
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+.entry__org {
+  display: block;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.entry__dates,
+.entry__place {
+  color: var(--color-muted);
+}
+
+.entry__dates {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Employment type as the vibe's thin outlined tag: [part-time] */
+.entry__kind {
+  display: inline-block;
+  margin-right: var(--space-2);
+  padding: 0 var(--space-2);
+  border: var(--rule);
+  border-radius: var(--radius);
+  line-height: 1.375;
+}
+
+.sep {
+  color: var(--color-muted);
+}
+
+/* Experience is drawn like "tree" output: one vertical line, a branch into each role. */
+.entries--tree {
+  gap: 0;
+}
+
+.entries--tree > .entry {
+  position: relative;
+  padding-left: var(--space-3);
+  padding-bottom: var(--space-4);
+}
+
+.entries--tree > .entry:last-child {
+  padding-bottom: 0;
+}
+
+/* The vertical line. */
+.entries--tree > .entry::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-left: var(--rule);
+}
+
+/* The last branch stops at its title, like the corner in "tree" output. */
+.entries--tree > .entry:last-child::before {
+  bottom: auto;
+  height: var(--branch-y);
+}
+
+/* The short branch into each role title. */
+.entries--tree > .entry::after {
+  content: "";
+  position: absolute;
+  top: var(--branch-y);
+  left: 0;
+  width: var(--space-2);
+  border-top: var(--rule);
+}
+
+/* ==========================================================
+   10. Projects (bordered cards with a green left edge)
+   ========================================================== */
+.cards {
+  display: grid;
+  gap: var(--space-3);
+  counter-reset: project;
+}
+
+.card {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: var(--rule);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius);
+  counter-increment: project;
+}
+
+/* A faint green wash when the card is hovered or its link has focus. */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-accent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card:hover::before,
+.card:focus-within::before {
+  opacity: 0.06;
+}
+
+.card:focus-within {
+  border-color: var(--color-accent);
+}
+
+.card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  column-gap: var(--space-3);
+}
+
+/* A long title wraps with its second line lined up after the number. */
+.card__title {
+  padding-left: calc(var(--num-col) + var(--space-2));
+  font-size: var(--text-md);
+  font-weight: 700;
+  text-indent: calc((var(--num-col) + var(--space-2)) * -1);
+}
+
+/* Muted 01-04 before each title, like a numbered listing. Screen readers skip it. */
+.card__title::before {
+  content: counter(project, decimal-leading-zero);
+  content: counter(project, decimal-leading-zero) / "";
+  display: inline-block;
+  width: var(--num-col);
+  margin-right: var(--space-2);
+  color: var(--color-muted);
+  font-weight: 400;
+  text-indent: 0;
+}
+
+/* 8px padding above and below a 28px line = a 44px tap target.
+   The underline sits on the URL only, so the arrow in front stays clean.
+   On a narrow phone a long URL wraps with its next lines tucked under the URL, not the arrow. */
+.card__link {
+  display: inline-block;
+  max-width: 100%;
+  padding: var(--space-2) 0 var(--space-2) calc(var(--arrow-col) + var(--space-2));
+  line-height: 1.75;
+  font-weight: 500;
+  text-decoration: none;
+  text-indent: calc((var(--arrow-col) + var(--space-2)) * -1);
+  overflow-wrap: anywhere;
+}
+
+.card__link::before {
+  content: "\2192";
+  content: "\2192" / "";
+  display: inline-block;
+  width: var(--arrow-col);
+  margin-right: var(--space-2);
+  text-indent: 0;
+}
+
+.card__url {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.card__link:hover .card__url {
+  text-decoration-thickness: 2px;
+}
+
+.card p {
+  max-width: var(--measure);
+}
+
+/* ==========================================================
+   11. Skills (#tags, grouped, dashed lines between groups)
+   ========================================================== */
+.skill-group {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) 0;
+}
+
+.skill-group:first-child {
+  padding-top: 0;
+}
+
+.skill-group:last-child {
+  padding-bottom: 0;
+}
+
+.skill-group + .skill-group {
+  border-top: var(--rule-dashed);
+}
+
+.skill-group__name {
+  color: var(--color-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: lowercase;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+}
+
+/* A long tag wraps with its second line tucked in after the "#". */
+.tags li {
+  padding-left: var(--space-2);
+  text-indent: calc(var(--space-2) * -1);
+}
+
+.tags li::before {
+  content: "#";
+  content: "#" / "";
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.tags__note {
+  color: var(--color-muted);
+}
+
+/* ==========================================================
+   12. Contact (label column + link, one per line)
+   ========================================================== */
+.contact li + li {
+  border-top: var(--rule-dashed);
+}
+
+/* Label column + link, one line each, even on a 320px phone.
+   On a very narrow phone the email wraps after the "@" (the <wbr> in index.html), never mid-word. */
+.contact li {
+  display: grid;
+  grid-template-columns: 9ch minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: var(--space-3);
+}
+
+.contact__label {
+  color: var(--color-muted);
+  text-transform: lowercase;
+}
+
+.contact__value {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--space-3);
+  min-width: 0;
+}
+
+.contact a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  max-width: 100%;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 14ch; /* same width for "Copy email" and "Copied", so nothing jumps */
+  min-height: var(--tap);
+  margin: var(--space-1) 0;
+  padding: 0 var(--space-3);
+  border: var(--rule);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.copy:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* Off-screen helper that older browsers use to copy text (made by script.js). */
+.copy-buffer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ==========================================================
+   13. Footer (bottom edge of the window)
+   ========================================================== */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: var(--space-3);
+  padding: 0 var(--space-3);
+  border-top: var(--rule);
+  color: var(--color-muted);
+}
+
+.footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+}
+
+/* ==========================================================
+   14. Tablet and up (768px)
+   ========================================================== */
+@media (min-width: 48em) {
+  body {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  main {
+    padding: 0 var(--space-4) var(--space-5);
+  }
+
+  .hero {
+    padding-top: var(--space-5);
+  }
+
+  .hero__title {
+    font-size: var(--text-xl);
+  }
+
+  .section {
+    padding-top: calc(var(--space-4) + var(--space-3));
+  }
+
+  /* Entry header: role on the left, type and dates pinned right on the same line. */
+  .entry__head {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    column-gap: var(--space-3);
+  }
+
+  .entry__title {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .entry__dates {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .entry__place {
+    grid-column: 1 / -1;
+  }
+
+  /* Wider tree: a longer branch and more room before the text. */
+  .entries--tree > .entry {
+    padding-left: var(--space-4);
+  }
+
+  .entries--tree > .entry::after {
+    width: var(--space-3);
+  }
+
+  /* Skills: group label in a fixed column, tags flowing beside it. */
+  .skill-group {
+    grid-template-columns: 27ch minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: var(--space-3);
+  }
+}
+
+/* ==========================================================
+   15. Desktop (1024px): sticky one-row title bar
+   ========================================================== */
+@media (min-width: 64em) {
+  body {
+    padding: var(--space-4);
+  }
+
+  .titlebar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-wrap: nowrap;
+  }
+
+  .nav {
+    flex: 0 1 auto;
+    margin-left: auto;
+    padding-bottom: 0;
+  }
+
+  /* Keep the top 60px clear of the sticky 45px title bar. This covers nav jumps to a section
+     and also a link that gets keyboard focus near the top, so it never hides under the bar. */
+  html {
+    scroll-padding-top: calc(var(--tap) + var(--space-3));
+  }
+
+  /* Role and employer share one line: "Role · Employer".
+     inline-block keeps the employer in one piece if it ever has to wrap. */
+  .entry__org {
+    display: inline-block;
+  }
+
+  .entry__org::before {
+    content: "· ";
+    content: "· " / "";
+    color: var(--color-muted);
+    font-weight: 400;
+  }
+
+  /* A title too long for that keeps its employer on the line underneath, with no dot. */
+  .entry--stacked .entry__org {
+    display: block;
+  }
+
+  .entry--stacked .entry__org::before {
+    content: none;
+  }
+}
+
+/* ==========================================================
+   16. Motion: short, transform/opacity only, and only if the visitor allows it.
+       Nothing moves when the page loads.
+   ========================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .skip-link {
+    transition: transform 150ms ease-out;
+  }
+
+  .card::before {
+    transition: opacity 150ms ease-out;
+  }
+
+  .card__link::before {
+    transition: transform 150ms ease-out;
+  }
+
+  /* The project arrow nudges 4px toward the link. */
+  .card__link:hover::before,
+  .card__link:focus-visible::before {
+    transform: translateX(var(--space-1));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================
+   17. Accessibility settings
+   ========================================================== */
+/* "Increase contrast": muted text and borders go to full strength. */
+@media (prefers-contrast: more) {
+  :root {
+    --color-muted: var(--color-text);
+    --color-border: var(--color-accent);
+  }
+}
+
+/* Windows high-contrast themes would erase the window dots, so draw them in the text colour. */
+@media (forced-colors: active) {
+  .titlebar__dots span {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+
+  .card::before {
+    display: none;
+  }
+}
+
+/* ==========================================================
+   18. Printing or "Save as PDF": dark ink on light paper.
+       The five vibe colours swap places, so no new colour is added.
+   ========================================================== */
+@media print {
+  :root {
+    --color-bg: #F0F8F0;     /* paper: the vibe's text colour */
+    --color-text: #07110B;   /* ink: the vibe's background colour */
+    --color-muted: #3B6B47;  /* the vibe's border green, 5.7:1 on the paper */
+    --color-accent: #3B6B47;
+    --color-border: #B2CFB8; /* the vibe's muted colour, for light rules */
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    padding: 0;
+  }
+
+  /* No menus, buttons or window chrome on paper. The contact section still lists every link. */
+  .skip-link,
+  .titlebar,
+  .hero__links,
+  .copy,
+  .footer,
+  .card::before {
+    display: none !important;
+  }
+
+  .window {
+    max-width: none;
+    border: 0;
+  }
+
+  main {
+    padding: 0;
+  }
+
+  .hero {
+    padding-top: 0;
+  }
+
+  /* Paper has no fingers: drop the 44px tap sizes. */
+  .card__link {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .contact a {
+    min-height: 0;
+  }
+
+  /* Keep each heading with what follows it, and each entry or card in one piece. */
+  h2,
+  h3,
+  .entry__head,
+  .card__head {
+    break-after: avoid;
+  }
+
+  .entry,
+  .card,
+  .skill-group,
+  .contact li {
+    break-inside: avoid;
+  }
+}
